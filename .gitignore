@@ -1,13 +1,4 @@
-AssetsMobileCompiler.bat
-TestComponent.as
-Profile.as
-ProfileModerator.as
-ProfileAdmin.as
-ProfileAngie.as
-ProfileMob.as
-ProfileSingle.as
-ProfileSingles.as
-ProfileSinglesMob.as
+
 *.stamp
 *.texreport
 *-report.xml
