@@ -3,6 +3,8 @@
  */
 package embed
 {
+    import flash.text.Font;
+
     public class EmbeddedAssets
     {
 
@@ -28,8 +30,16 @@ package embed
 
 
         //FONTS
-        [Embed(source="../../assets/fonts/videophreak.ttf", mimeType="application/octet-stream")]
+        [Embed(source="../../assets/fonts/videophreak.ttf",mimeType="application/x-font-truetype", embedAsCFF="false", fontName="videophreak")]
         public static const videophreak_ttf:Class;
 
+        static public function start():void
+        {
+            trace("Fonts Registered");
+
+            Font.registerFont(EmbeddedAssets.videophreak_ttf);
+        }
+
+        public static const VIDEO_PHREAK:String = "videophreak_ttf";
     }
 }

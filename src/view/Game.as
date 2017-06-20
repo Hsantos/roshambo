@@ -5,6 +5,13 @@ package view
 {
     import controller.GameController;
     import controller.MenuController;
+
+    import embed.EmbeddedAssets;
+
+    import flash.compiler.embed.EmbeddedMovieClip;
+
+    import flash.text.Font;
+
     import starling.display.Sprite;
     import starling.utils.AssetManager;
     import view.MenuView;
@@ -22,6 +29,7 @@ package view
         {
             sAssets = assets;
             trace("Initialize Starling");
+            EmbeddedAssets.start();
 
             var menu:MenuView = new MenuView();
             addChild(menu);
@@ -29,8 +37,10 @@ package view
 
             var game:GameView = new GameView();
             addChild(game);
-            game.x = game.y = 200;
+            game.x = 230;
+            game.y = 200;
             GameController.ME.startView(game);
+
 
         }
 

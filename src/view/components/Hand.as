@@ -3,6 +3,8 @@
  */
 package view.components
 {
+    import starling.animation.Tween;
+    import starling.core.Starling;
     import starling.display.Image;
 
     import view.Game;
@@ -22,6 +24,8 @@ package view.components
         public static const PAPER_STATE:int = 2 ;
         public static const SCISSOR_STATE:int = 3 ;
 
+
+        private var lastDecision:int;
         public function Hand()
         {
             handRock = new Image(Game.assets.getTexture("handrock"));
@@ -32,7 +36,8 @@ package view.components
             addChild(handPaper);
             addChild(handScissor);
 
-            _state = DEFAULT_STATE;
+            state = DEFAULT_STATE;
+
         }
 
         public function get state():int
@@ -64,6 +69,17 @@ package view.components
             }
         }
 
+        public function startChoice(decision:int):void
+        {
+            this.lastDecision = decision;
+            Starling.juggler.tween(this,0.8,{y:this.y-1,repeatCount:3,onComplete:ShowCoice});
+        }
+
+        private function ShowCoice():void
+        {
+            state = this.lastDecision;
+            trace("SHOW CHOICE: " +  this.lastDecision);
+        }
 
     }
 }

@@ -5,14 +5,28 @@ package model
 {
     public class Session
     {
-        private var sessionType:int;
-        private var sessionId:int;
+        private var _sessionType:int;
+        private var _sessionId:int;
         public static const PLAYER_VS_COMPUTER:int = 0;
         public static const COMPUTER_VS_COMPUTER:int = 1;
 
-        public function Session(sessionType:int)
-        {
 
+
+
+        public function Session(sessionType:int,sessionId:int)
+        {
+            _sessionType = sessionType;
+            _sessionId = sessionId;
+        }
+
+        public function get sessionType():int
+        {
+            return _sessionType;
+        }
+
+        public function get id():int
+        {
+            return _sessionId;
         }
     }
 }

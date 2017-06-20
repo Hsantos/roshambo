@@ -12,9 +12,10 @@ package controller
         public static const ROCK:int = 0;
         public static const PAPER:int = 1;
         public static const SCISSOR:int = 2;
-        private var sessionsList:Vector.<Session>;
 
         public static var ME:GameController = new GameController();
+
+        private var countSessions:int = 0;
         public function GameController()
         {
             if(ME)throw new Error("Singleton... use getInstance()");
@@ -23,14 +24,14 @@ package controller
 
         public function startSession(sessionType:int):void
         {
-            if(!sessionsList)
-                sessionsList = new <Session>[]();
-
-
-            var session:Session = new Session(sessionType);
-            sessionsList.push(session);
-
+            var session:Session = new Session(sessionType,countSessions);
             GameView(view).startSession(session);
+            countSessions++;
+        }
+
+        public function updateSessionDecision(decision:int,sessionId:int):void
+        {
+            GameView(view).updateSessionDecision(decision,sessionId);
         }
 
     }

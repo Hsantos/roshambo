@@ -27,10 +27,15 @@ package view
                 addChild(listView);
             }
 
-            sessionView = new SessionView();
-            listView.addChild(sessionView);
+            sessionView = new SessionView(session);
+            listView.insert(sessionView);
+            sessionView.updateGame();
+        }
 
-
+        public function updateSessionDecision(decision:int,sessionId:int):void
+        {
+            trace("update decision: " +  decision +  "  |  " +  sessionId );
+            SessionView(listView.getView(sessionId)).executeDecision(decision);
         }
     }
 }
