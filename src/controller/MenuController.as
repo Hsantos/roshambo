@@ -7,21 +7,15 @@ package controller
     import view.MenuView;
     import view.View;
 
-    public class MenuController
+    public class MenuController extends ViewController
     {
-        private var view:MenuView;
 
-        public static var ME:MenuController = new MenuController();
+        public static var ME:ViewController = new ViewController();
+
         public function MenuController()
         {
             if(ME)throw new Error("Singleton... use getInstance()");
             ME = this;
-        }
-
-
-        public function showView():View
-        {
-            return MenuView(view);
         }
 
     }

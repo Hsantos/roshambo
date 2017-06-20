@@ -26,10 +26,10 @@ package
 
         public function Main()
         {
-
+            start();
         }
 
-        public function start(assets:AssetManager):void
+        public function start():void
         {
             trace("Initialize Game");
 
@@ -44,7 +44,6 @@ package
 
             _starling.start();
 
-            GameController.ME.showMenu();
         }
 
         private function loadAssets(onComplete:Function):void

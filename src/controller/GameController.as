@@ -5,7 +5,9 @@ package controller
 {
     import model.Session;
 
-    public class GameController
+    import view.GameView;
+
+    public class GameController extends ViewController
     {
         public static const ROCK:int = 0;
         public static const PAPER:int = 1;
@@ -19,7 +21,6 @@ package controller
             ME = this;
         }
 
-
         public function startSession(sessionType:int):void
         {
             if(!sessionsList)
@@ -28,11 +29,9 @@ package controller
 
             var session:Session = new Session(sessionType);
             sessionsList.push(session);
+
+            GameView(view).startSession(session);
         }
 
-        public function showMenu():void
-        {
-            MenuController.ME
-        }
     }
 }

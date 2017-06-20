@@ -3,6 +3,7 @@
  */
 package view
 {
+    import starling.core.Starling;
     import starling.display.Sprite;
 
     public class View extends Sprite
@@ -12,10 +13,7 @@ package view
 
         }
 
-//        public function draw():void
-//        {
-//            Main.stageView.draw(this);
-//        }
+
 //
 //        public function destroy():void
 //        {
