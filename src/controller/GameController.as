@@ -5,6 +5,8 @@ package controller
 {
     import model.Session;
 
+    import starling.core.Starling;
+
     import view.GameView;
 
     public class GameController extends ViewController
@@ -31,8 +33,23 @@ package controller
 
         public function updateSessionDecision(decision:int,sessionId:int):void
         {
-            GameView(view).updateSessionDecision(decision,sessionId);
+
         }
+
+
+        public function checkWinnerRound(decisionLeft:int, decisionRight:int, sessionId:int):void
+        {
+            //check winner round
+            GameView(view).updateWinnerRound(ResultController.ME.getResult(decisionLeft,decisionRight),sessionId);
+            Starling.juggler.delayCall(checkWinnerRound,1,sessionId);
+        }
+
+        private function checkWinnerSession(sessionId:int):void
+        {
+            //todo check points for winner or continue round
+        }
+
+
 
     }
 }

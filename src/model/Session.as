@@ -7,10 +7,10 @@ package model
     {
         private var _sessionType:int;
         private var _sessionId:int;
+        private var _leftPoints:int = 0;
+        private var _rightPoints:int = 0;
         public static const PLAYER_VS_COMPUTER:int = 0;
         public static const COMPUTER_VS_COMPUTER:int = 1;
-
-
 
 
         public function Session(sessionType:int,sessionId:int)
@@ -27,6 +27,22 @@ package model
         public function get id():int
         {
             return _sessionId;
+        }
+
+        public function updatePoints(left:Boolean)
+        {
+            if(left) _leftPoints++;
+            else _rightPoints++;
+        }
+
+        public function get rightPoints():int
+        {
+            return _rightPoints;
+        }
+
+        public function get leftPoints():int
+        {
+            return _leftPoints;
         }
     }
 }

@@ -37,5 +37,10 @@ package view
             trace("update decision: " +  decision +  "  |  " +  sessionId );
             SessionView(listView.getView(sessionId)).executeDecision(decision);
         }
+
+        public function updateWinnerRound(resultRound:int, sessionId:int):void
+        {
+            SessionView(listView.getView(sessionId)).updateWinnerRound(resultRound);
+        }
     }
 }

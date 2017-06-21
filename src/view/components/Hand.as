@@ -20,12 +20,13 @@ package view.components
         private var _state:int = -1;
 
         public static const DEFAULT_STATE:int = 0 ;
-        public static const ROCK_STATE:int = 1 ;
-        public static const PAPER_STATE:int = 2 ;
-        public static const SCISSOR_STATE:int = 3 ;
+        public static const ROCK_STATE:int = 0 ;
+        public static const PAPER_STATE:int = 1 ;
+        public static const SCISSOR_STATE:int = 2 ;
 
+        public var onDecisionShow:Function;
 
-        private var lastDecision:int;
+        private var _lastDecision:int;
         public function Hand()
         {
             handRock = new Image(Game.assets.getTexture("handrock"));
@@ -71,15 +72,19 @@ package view.components
 
         public function startChoice(decision:int):void
         {
-            this.lastDecision = decision;
-            Starling.juggler.tween(this,0.8,{y:this.y-1,repeatCount:3,onComplete:ShowCoice});
+            _lastDecision = decision;
+            Starling.juggler.tween(this,0.6,{y:this.y-20,repeatCount:3,onComplete:showCoice});
         }
 
-        private function ShowCoice():void
+        private function showCoice():void
         {
-            state = this.lastDecision;
+            state = _lastDecision;
             trace("SHOW CHOICE: " +  this.lastDecision);
         }
 
+        public function get lastDecision():int
+        {
+            return _lastDecision;
+        }
     }
 }

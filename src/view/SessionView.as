@@ -5,6 +5,7 @@ package view
 {
     import controller.GameController;
     import controller.IAcontroller;
+    import controller.ResultController;
 
     import embed.EmbeddedAssets;
 
@@ -22,16 +23,21 @@ package view
     {
         private var handLeft:Hand;
         private var handRight:Hand;
+        private var labelLeft:TextView;
+        private var labelRight:TextView;
+
         private var gameStats:TextView;
         private var timeRoshambo:TextView;
         private var session:Session;
-
         private var btRock:MenuButton;
         private var btPaper:MenuButton;
         private var btScissor:MenuButton;
         private var countTime:int = 0;
 
         private var lastDecision:int = -1;
+
+        private var countDecisions:int = 0;
+
         public function SessionView(session:Session)
         {
             this.session = session;
@@ -46,8 +52,8 @@ package view
 
             timeRoshambo = new TextView(400,80,"0",EmbeddedAssets.VIDEO_PHREAK,60,0xfffffff);
             addChild(timeRoshambo);
-            timeRoshambo.y = 50;
-            timeRoshambo.x = 250;
+            timeRoshambo.y = 30;
+            timeRoshambo.x = 230;
 
             handLeft = new Hand();
             handRight = new Hand();
@@ -62,17 +68,28 @@ package view
             handLeft.y = handRight.y = 290;
 
 
+            labelLeft = new TextView(100,80,"0",EmbeddedAssets.VIDEO_PHREAK,60,0xfffffff);
+            addChild(labelLeft);
+            labelLeft.y = 300;
+            labelLeft.x = 20;
+
+            labelRight = new TextView(100,80,"0",EmbeddedAssets.VIDEO_PHREAK,60,0xfffffff);
+            addChild(labelRight);
+            labelRight.y = 300;
+            labelRight.x = 400;
+
+
             if(session.sessionType == Session.PLAYER_VS_COMPUTER)
             {
                 btRock = new MenuButton( Game.assets.getTexture( "btgreen" ), "ROCK" );
                 btPaper = new MenuButton( Game.assets.getTexture( "btgreen" ), "PAPER" );
                 btScissor = new MenuButton( Game.assets.getTexture( "btgreen" ), "SCISSOR" );
 
-                btRock.x = btPaper.x = btScissor.x = 20;
+                btRock.x = btPaper.x = btScissor.x = 10;
 
-                btRock.y = 50;
-                btPaper.y = 160;
-                btScissor.y = 270;
+                btRock.y = 30;
+                btPaper.y = 120;
+                btScissor.y = 210;
 
                 addChild( btRock );
                 addChild( btPaper );
@@ -83,6 +100,8 @@ package view
                 btScissor.onTouch = makeChoice;
             }
 
+            handRight.onDecisionShow = handLeft.onDecisionShow = onDecisions;
+
         }
 
         public function id():int
@@ -92,6 +111,8 @@ package view
 
         private function makeChoice(bt:MenuButton):void
         {
+            gameStats.text = "";
+            countDecisions = 0;
             var decision:int = -1;
 
             switch(bt)
@@ -168,6 +189,45 @@ package view
             trace("show decision");
             handLeft.startChoice(session.sessionType == Session.PLAYER_VS_COMPUTER ?  lastDecision : IAcontroller.ME.getDecision());
             handRight.startChoice(IAcontroller.ME.getDecision());
+
+
+        }
+
+        private function onDecisions():void
+        {
+            countDecisions++;
+            if(countDecisions==2)
+            {
+                GameController.ME.checkWinnerRound(handLeft.lastDecision, handRight.lastDecision, session.id);
+            }
+        }
+
+
+        public function updateWinnerRound(resultRound:int):void
+        {
+            switch(resultRound)
+            {
+                case ResultController.LEFT_WIN:
+                    gameStats.text = "Left Point";
+                    session.updatePoints(true);
+                    labelLeft.text = session.leftPoints.toString();
+                    break;
+                case ResultController.RIGHT_WIN:
+                    gameStats.text = "Right Point";
+                    session.updatePoints(false);
+                    labelRight.text = session.leftPoints.toString();
+                    break;
+                case ResultController.DRAW_GAME:
+                    gameStats.text = "Draw Round";
+
+                    break;
+                default:
+                        throw  new Error("Decision Error");
+                    break;
+
+            }
+
+
         }
 
 
