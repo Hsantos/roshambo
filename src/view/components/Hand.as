@@ -3,7 +3,10 @@
  */
 package view.components
 {
+    import flash.display.StageAlign;
+
     import starling.animation.Tween;
+    import starling.core.Starling;
     import starling.core.Starling;
     import starling.display.Image;
 
@@ -27,6 +30,8 @@ package view.components
         public var onDecisionShow:Function;
 
         private var _lastDecision:int;
+
+        public var defaultY:int;
         public function Hand()
         {
             handRock = new Image(Game.assets.getTexture("handrock"));
@@ -37,7 +42,7 @@ package view.components
             addChild(handPaper);
             addChild(handScissor);
 
-            state = DEFAULT_STATE;
+            reset();
 
         }
 
@@ -70,16 +75,23 @@ package view.components
             }
         }
 
+        public function reset():void
+        {
+            state = DEFAULT_STATE;
+        }
+
         public function startChoice(decision:int):void
         {
             _lastDecision = decision;
-            Starling.juggler.tween(this,0.6,{y:this.y-20,repeatCount:3,onComplete:showCoice});
+            Starling.juggler.tween(this,0.5,{y:this.y-30,repeatCount:3,onComplete:showCoice});
         }
 
         private function showCoice():void
         {
+            this.y = defaultY;
             state = _lastDecision;
             trace("SHOW CHOICE: " +  this.lastDecision);
+            Starling.juggler.delayCall(onDecisionShow,1);
         }
 
         public function get lastDecision():int

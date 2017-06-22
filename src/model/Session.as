@@ -29,7 +29,7 @@ package model
             return _sessionId;
         }
 
-        public function updatePoints(left:Boolean)
+        public function updatePoints(left:Boolean):void
         {
             if(left) _leftPoints++;
             else _rightPoints++;

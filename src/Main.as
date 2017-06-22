@@ -4,6 +4,7 @@
 package
 {
     import controller.GameController;
+    import controller.IAcontroller;
 
     import embed.EmbeddedAssets;
 

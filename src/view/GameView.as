@@ -42,5 +42,15 @@ package view
         {
             SessionView(listView.getView(sessionId)).updateWinnerRound(resultRound);
         }
+
+        public function getPoints(sessionId:int):Vector.<int>
+        {
+            return SessionView(listView.getView(sessionId)).getPoints();
+        }
+
+        public function endSession(sessionId:int):void
+        {
+            SessionView(listView.getView(sessionId)).endSession();
+        }
     }
 }

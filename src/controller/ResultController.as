@@ -22,15 +22,20 @@ package controller
         {
             if(resultLeft == resultRight) return DRAW_GAME;
 
-            if(resultLeft == GameController.ROCK && resultLeft == GameController.PAPER) return RIGHT_WIN;
-            if(resultLeft == GameController.SCISSOR && resultLeft == GameController.ROCK) return RIGHT_WIN;
-            if(resultLeft == GameController.PAPER && resultLeft == GameController.SCISSOR) return RIGHT_WIN;
+            if(resultLeft == GameController.ROCK && resultRight == GameController.PAPER) return RIGHT_WIN;
+            if(resultLeft == GameController.SCISSOR && resultRight == GameController.ROCK) return RIGHT_WIN;
+            if(resultLeft == GameController.PAPER && resultRight == GameController.SCISSOR) return RIGHT_WIN;
 
-            if(resultLeft == GameController.ROCK && resultLeft == GameController.SCISSOR) return LEFT_WIN;
-            if(resultLeft == GameController.PAPER && resultLeft == GameController.ROCK) return LEFT_WIN;
-            if(resultLeft == GameController.SCISSOR && resultLeft == GameController.PAPER) return LEFT_WIN;
+            if(resultLeft == GameController.ROCK && resultRight == GameController.SCISSOR) return LEFT_WIN;
+            if(resultLeft == GameController.PAPER && resultRight == GameController.ROCK) return LEFT_WIN;
+            if(resultLeft == GameController.SCISSOR && resultRight == GameController.PAPER) return LEFT_WIN;
 
+            return -1;
+        }
 
+        public function onWinner(result:Vector.<int>):Boolean
+        {
+            return result[0] == 3 || result[1] == 3;
         }
     }
 }

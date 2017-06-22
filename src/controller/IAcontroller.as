@@ -16,7 +16,8 @@ package controller
         private var bucket:Array = [GameController.ROCK,GameController.PAPER,GameController.SCISSOR];
         public function getDecision():int
         {
-            return bucket[int(Math.random() * bucket.length-1)];
+            return bucket[int(Math.random() * bucket.length)];
         }
+
     }
 }
