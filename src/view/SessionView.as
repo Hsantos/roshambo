@@ -164,7 +164,7 @@ package view
             }
             else if(session.sessionType == Session.COMPUTER_VS_COMPUTER)
             {
-                gameStats.text = "Computer om choices";
+                gameStats.text = "Computer on choices";
             }
             else
             {

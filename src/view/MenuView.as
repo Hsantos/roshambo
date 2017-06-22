@@ -28,7 +28,7 @@ package view
             bg = new Image(Game.assets.getTexture("background"));
             addChild(bg);
 
-            title = new TextView(500,80,"ROSHAMBO",EmbeddedAssets.VIDEO_PHREAK,60,0xfffffff);
+            title = new TextView(500,80,"ROSHAMBO",EmbeddedAssets.PT_SANS,60,0xfffffff);
             addChild(title);
             title.x = 260;
 

@@ -5,6 +5,11 @@ package view.components
 {
     import flash.display.Sprite;
 
+    import starling.events.Touch;
+
+    import starling.events.TouchEvent;
+    import starling.events.TouchPhase;
+
     import view.SessionView;
 
     import view.View;
@@ -17,6 +22,7 @@ package view.components
 
         public function ListView()
         {
+            this.addEventListener( TouchEvent.TOUCH, buttonTrigger );
         }
 
         public function get posX():int
@@ -30,7 +36,7 @@ package view.components
 
            for(var i:int = 0; i< objList.length; i++)
            {
-               objList[i].x += objList[i].width;
+               objList[i].x += (objList[i].width+10);
            }
 
            addChild(obj as View); 
@@ -46,6 +52,24 @@ package view.components
             }
 
             return null;
+        }
+
+        private var lastX:int;
+        private var speed:Number = 6;
+
+        private function buttonTrigger(evt:TouchEvent):void
+        {
+            var tc:Touch = evt.getTouch(stage);
+
+            if(objList == null)return;
+            if(objList.length == 1)return;
+            if(tc.phase != TouchPhase.MOVED) return;
+
+            if(evt.getTouch(stage).globalX > lastX) this.x+=speed;
+            else if(evt.getTouch(stage).globalX < lastX) this.x-=speed;
+
+            lastX = evt.getTouch(stage).globalX;
+
         }
     }
 }

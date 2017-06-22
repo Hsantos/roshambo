@@ -32,14 +32,19 @@ package embed
         //FONTS
         [Embed(source="../../assets/fonts/videophreak.ttf",mimeType="application/x-font-truetype", embedAsCFF="false", fontName="videophreak")]
         public static const videophreak_ttf:Class;
+        [Embed(source="../../assets/fonts/PTS75F.ttf",mimeType="application/x-font-truetype", embedAsCFF="false", fontName="PTsans")]
+        public static const ptSans:Class;
+
 
         static public function start():void
         {
             trace("Fonts Registered");
 
             Font.registerFont(EmbeddedAssets.videophreak_ttf);
+            Font.registerFont(EmbeddedAssets.ptSans);
         }
 
         public static const VIDEO_PHREAK:String = "videophreak_ttf";
+        public static const PT_SANS:String = "ptSans";
     }
 }

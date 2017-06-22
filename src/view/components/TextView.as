@@ -17,11 +17,12 @@ package view.components
                 fontName:String = "Verdana", //
                 fontSize:Number = 12, //
                 color:uint = 0, //
-                bold:Boolean = false) //
+                bold:Boolean = true) //
         {
+            var textFormat:TextFormat = new TextFormat("Verdana",fontSize,color);
 
-            super(width, height, text, new TextFormat(fontName,fontSize,color));
-
+            super(width, height, text);
+            format = textFormat;
         }
     }
 }

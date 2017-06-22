@@ -33,7 +33,6 @@ package
         public function start():void
         {
             trace("Initialize Game");
-
             _starling = new Starling(Game, stage);
             _starling.simulateMultitouch = true;
             _starling.skipUnchangedFrames = true;
@@ -50,7 +49,6 @@ package
         private function loadAssets(onComplete:Function):void
         {
             var assets:AssetManager = new AssetManager();
-
             assets.verbose = Capabilities.isDebugger;
             assets.enqueue(EmbeddedAssets);
 
@@ -72,17 +70,6 @@ package
             var game:Game = _starling.root as Game;
             game.start(assets);
         }
-
-
-//        public function draw(child:View):void
-//        {
-//            addChild(child);
-//        }
-//
-//        public function destroy(child:View):void
-//        {
-//            removeChild(child);
-//        }
 
     }
 }
