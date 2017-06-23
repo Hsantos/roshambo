@@ -207,17 +207,17 @@ package view
             switch(resultRound)
             {
                 case ResultController.LEFT_WIN:
-                    gameStats.text = "Left Point";
+                    gameStats.text = "LEFT SCORES";
                     session.updatePoints(true);
                     labelLeft.text = session.leftPoints.toString();
                     break;
                 case ResultController.RIGHT_WIN:
-                    gameStats.text = "Right Point";
+                    gameStats.text = "RIGHT SCORES";
                     session.updatePoints(false);
                     labelRight.text = session.rightPoints.toString();
                     break;
                 case ResultController.DRAW_GAME:
-                    gameStats.text = "Draw Round";
+                    gameStats.text = "DRAW";
                     break;
                 default:
                         throw  new Error("Decision Error: " +  resultRound);
@@ -244,9 +244,9 @@ package view
             session.finish();
 
             if(session.leftPoints==3)
-                gameStats.text = "LEFT WIN";
+                gameStats.text = "LEFT WINS";
             else if(session.rightPoints==3)
-                gameStats.text = "RIGHT WIN";
+                gameStats.text = "RIGHT WINS";
             else
                 throw new Error("END SESSION ERROR: " +  session.id +  " | " + session.leftPoints +  " | " + session.rightPoints);
 
