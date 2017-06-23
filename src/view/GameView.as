@@ -16,7 +16,6 @@ package view
 
         public function GameView()
         {
-            trace("GAME CREATED");
         }
 
         public function startSession(session:Session):void
@@ -34,7 +33,6 @@ package view
 
         public function updateSessionDecision(decision:int,sessionId:int):void
         {
-            trace("update decision: " +  decision +  "  |  " +  sessionId );
             SessionView(listView.getView(sessionId)).executeDecision(decision);
         }
 

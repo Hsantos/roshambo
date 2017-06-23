@@ -8,7 +8,6 @@ package view
     import controller.ResultController;
     import embed.EmbeddedAssets;
     import flash.display.StageAlign;
-
     import model.Session;
     import model.Session;
     import starling.core.Starling;
@@ -36,7 +35,6 @@ package view
         public function SessionView(session:Session)
         {
             this.session = session;
-            trace("NEW SESSION CREATED");
 
             addChild(new Image(Game.assets.getTexture("backgroundGame")));
 
@@ -142,30 +140,22 @@ package view
             if(session.finished) return;
 
             if(session.sessionType == Session.COMPUTER_VS_COMPUTER)
-            {
                 Starling.juggler.delayCall(computerDecision,1);
-            }
             else if(session.sessionType == Session.PLAYER_VS_COMPUTER)
-            {
                 enablePlayerButtons(true);
-            }
         }
 
         public function updateGame():void
         {
             if(session.sessionType == Session.PLAYER_VS_COMPUTER)
-            {
                 gameStats.text = "Player select your choice";
-            }
             else if(session.sessionType == Session.COMPUTER_VS_COMPUTER)
             {
                 gameStats.text = "Computer on choices";
                 applyDecision();
             }
             else
-            {
                 throw new Error("TURN ERROR" +  session.id +  " | " + session.sessionType);
-            }
         }
 
 
@@ -175,15 +165,10 @@ package view
 
             lastDecision = decision;
             countTime = 3;
-            disableButtons();
             initTime();
 
         }
 
-        private function disableButtons():void
-        {
-
-        }
 
         private function initTime():void
         {
@@ -206,7 +191,6 @@ package view
 
         private function showDecision():void
         {
-            trace("show decision");
             handLeft.startChoice(session.sessionType == Session.PLAYER_VS_COMPUTER ?  lastDecision : IAcontroller.ME.getDecision());
             handRight.startChoice(IAcontroller.ME.getDecision());
         }
@@ -215,11 +199,8 @@ package view
         {
             countDecisions++;
             if(countDecisions==2)
-            {
                 GameController.ME.checkWinnerRound(handLeft.lastDecision, handRight.lastDecision, session.id);
-            }
         }
-
 
         public function updateWinnerRound(resultRound:int):void
         {
@@ -274,16 +255,8 @@ package view
 
         private function enablePlayerButtons(enable:Boolean):void
         {
-            if(enable)
-            {
-                btPaper.touchable =  btRock.touchable = btScissor.touchable = true;
-                btPaper.alpha =  btRock.alpha = btScissor.alpha = 1;
-            }
-            else
-            {
-                btPaper.touchable =  btRock.touchable = btScissor.touchable = false;
-                btPaper.alpha =  btRock.alpha = btScissor.alpha = 0.5;
-            }
+            btPaper.touchable =  btRock.touchable = btScissor.touchable = enable;
+            btPaper.alpha =  btRock.alpha = btScissor.alpha = enable ? 1 : 0.5;
         }
 
 

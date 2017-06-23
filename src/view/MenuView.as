@@ -23,22 +23,20 @@ package view
 
         public function MenuView()
         {
-            trace("MENU CREATED");
-
             bg = new Image(Game.assets.getTexture("background"));
-            addChild(bg);
-
             title = new TextView(500,80,"ROSHAMBO",EmbeddedAssets.VIDEO_PHREAK,60,0x000000);
-            addChild(title);
             title.x = 260;
-
             buttonPvC = new MenuButton(Game.assets.getTexture("btblue"),"PLAYER VS. COMPUTER");
             buttonCvC = new MenuButton(Game.assets.getTexture("btred"),"COMPUTER VS. COMPUTER");
-            addChild(buttonPvC);
-            addChild(buttonCvC);
             buttonPvC.x = 300;
             buttonCvC.x = 530;
             buttonPvC.y = buttonCvC.y = 90;
+
+            addChild(bg);
+            addChild(title);
+            addChild(buttonPvC);
+            addChild(buttonCvC);
+
 
             buttonPvC.onTouch = createPVCSession;
             buttonCvC.onTouch = createCVCSession;

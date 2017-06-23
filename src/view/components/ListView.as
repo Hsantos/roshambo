@@ -35,9 +35,7 @@ package view.components
            if(!objList) objList = new <View>[];
 
            for(var i:int = 0; i< objList.length; i++)
-           {
                objList[i].x += (objList[i].width+10);
-           }
 
            addChild(obj as View); 
            objList.push(obj as View);
@@ -47,15 +45,13 @@ package view.components
         public function getView(id:int):View
         {
             for(var i:int = 0; i< objList.length; i++)
-            {
                 if(SessionView(objList[i]).id() == id) return objList[i];
-            }
 
             return null;
         }
 
         private var lastX:int;
-        private var speed:Number = 6;
+        private var speed:Number = 15;
 
         private function buttonTrigger(evt:TouchEvent):void
         {

@@ -28,20 +28,17 @@ package view
         public function start(assets:AssetManager):void
         {
             sAssets = assets;
-            trace("Initialize Starling");
-
-
             var menu:MenuView = new MenuView();
-            addChild(menu);
             MenuController.ME.startView(menu);
-
             var game:GameView = new GameView();
-            addChild(game);
+
             game.x = 230;
             game.y = 200;
+            addChild(menu);
+
+            addChild(game);
+
             GameController.ME.startView(game);
-
-
         }
 
         public static function get assets():AssetManager { return sAssets; }

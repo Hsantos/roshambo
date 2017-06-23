@@ -32,7 +32,6 @@ package
 
         public function start():void
         {
-            trace("Initialize Game");
             _starling = new Starling(Game, stage);
             _starling.simulateMultitouch = true;
             _starling.skipUnchangedFrames = true;
@@ -56,7 +55,6 @@ package
             {
                 if (ratio == 1)
                 {
-                    // now would be a good time for a clean-up
                     System.pauseForGCIfCollectionImminent(0);
                     System.gc();
 
