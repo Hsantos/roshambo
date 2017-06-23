@@ -11,7 +11,7 @@ package model
         private var _rightPoints:int = 0;
         public static const PLAYER_VS_COMPUTER:int = 0;
         public static const COMPUTER_VS_COMPUTER:int = 1;
-
+        private var _finished:Boolean = false;
 
         public function Session(sessionType:int,sessionId:int)
         {
@@ -43,6 +43,16 @@ package model
         public function get leftPoints():int
         {
             return _leftPoints;
+        }
+
+        public function finish():void
+        {
+            _finished = true;
+        }
+
+        public function get finished():Boolean
+        {
+            return _finished;
         }
     }
 }

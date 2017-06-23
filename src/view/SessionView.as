@@ -6,15 +6,13 @@ package view
     import controller.GameController;
     import controller.IAcontroller;
     import controller.ResultController;
-
     import embed.EmbeddedAssets;
+    import flash.display.StageAlign;
 
     import model.Session;
-
+    import model.Session;
     import starling.core.Starling;
-
     import starling.display.Image;
-
     import view.components.Hand;
     import view.components.MenuButton;
     import view.components.TextView;
@@ -25,7 +23,6 @@ package view
         private var handRight:Hand;
         private var labelLeft:TextView;
         private var labelRight:TextView;
-
         private var gameStats:TextView;
         private var timeRoshambo:TextView;
         private var session:Session;
@@ -33,9 +30,7 @@ package view
         private var btPaper:MenuButton;
         private var btScissor:MenuButton;
         private var countTime:int = 0;
-
         private var lastDecision:int = -1;
-
         private var countDecisions:int = 0;
 
         public function SessionView(session:Session)
@@ -46,60 +41,51 @@ package view
             addChild(new Image(Game.assets.getTexture("backgroundGame")));
 
             gameStats = new TextView(400,80,"",EmbeddedAssets.VIDEO_PHREAK,30,0xfffffff);
-            addChild(gameStats);
             gameStats.y = 70;
-            gameStats.x = 190;
-
+            gameStats.x = session.sessionType == Session.COMPUTER_VS_COMPUTER ? 120: 190;
             timeRoshambo = new TextView(400,80,"",EmbeddedAssets.VIDEO_PHREAK,60,0xfffffff);
-            addChild(timeRoshambo);
             timeRoshambo.y = 20;
-            timeRoshambo.x = 180;
-
+            timeRoshambo.x = session.sessionType == Session.COMPUTER_VS_COMPUTER ? 110 : 180;
             handLeft = new Hand();
             handRight = new Hand();
 
             handLeft.scaleX = -1;
-
-            addChild(handLeft);
-            addChild(handRight);
-
-            handLeft.x = 170;
+            handLeft.x = 175;
             handRight.x = 420;
             handLeft.y = handRight.y = handLeft.defaultY = handRight.defaultY = 300;
 
 
-            labelLeft = new TextView(100,80,"0",EmbeddedAssets.VIDEO_PHREAK,60,0xfffffff);
-            addChild(labelLeft);
+            labelLeft = new TextView(100,80,"0",EmbeddedAssets.VIDEO_PHREAK,50,0xfffffff);
             labelLeft.y = 220;
-            labelLeft.x = 40;
-
-            labelRight = new TextView(100,80,"0",EmbeddedAssets.VIDEO_PHREAK,60,0xfffffff);
-            addChild(labelRight);
+            labelLeft.x = 50;
+            labelRight = new TextView(100,80,"0",EmbeddedAssets.VIDEO_PHREAK,50,0xfffffff);
             labelRight.y = 220;
             labelRight.x = 440;
 
+            addChild(gameStats);
+            addChild(timeRoshambo);
+            addChild(handLeft);
+            addChild(handRight);
+            addChild(labelLeft);
+            addChild(labelRight);
 
             if(session.sessionType == Session.PLAYER_VS_COMPUTER)
             {
                 btRock = new MenuButton( Game.assets.getTexture( "btgreen" ), "ROCK" );
                 btPaper = new MenuButton( Game.assets.getTexture( "btgreen" ), "PAPER" );
                 btScissor = new MenuButton( Game.assets.getTexture( "btgreen" ), "SCISSOR" );
-
                 btRock.x = btPaper.x = btScissor.x = 10;
-
                 btRock.y = 20;
                 btPaper.y = 90;
                 btScissor.y = 160;
-
                 btRock.scale = btPaper.scale = btScissor.scale = 0.8;
+                btRock.onTouch = makeChoice;
+                btPaper.onTouch = makeChoice;
+                btScissor.onTouch = makeChoice;
 
                 addChild( btRock );
                 addChild( btPaper );
                 addChild( btScissor );
-
-                btRock.onTouch = makeChoice;
-                btPaper.onTouch = makeChoice;
-                btScissor.onTouch = makeChoice;
             }
 
             handRight.onDecisionShow = handLeft.onDecisionShow = onDecisions;
@@ -142,13 +128,22 @@ package view
         }
 
 
+        private function computerDecision()
+        {
+            handLeft.reset();
+            handRight.reset();
+            gameStats.text = "";
+            countDecisions = 0;
+            GameController.ME.updateSessionDecision(-1,session.id);
+        }
+
         private function applyDecision():void
         {
+            if(session.finished) return;
+
             if(session.sessionType == Session.COMPUTER_VS_COMPUTER)
             {
-                gameStats.text = "";
-                countDecisions = 0;
-                GameController.ME.updateSessionDecision(-1,session.id);
+                Starling.juggler.delayCall(computerDecision,1);
             }
             else if(session.sessionType == Session.PLAYER_VS_COMPUTER)
             {
@@ -165,6 +160,7 @@ package view
             else if(session.sessionType == Session.COMPUTER_VS_COMPUTER)
             {
                 gameStats.text = "Computer on choices";
+                applyDecision();
             }
             else
             {
@@ -175,6 +171,8 @@ package view
 
         public function executeDecision(decision:int):void
         {
+            if(session.finished) return;
+
             lastDecision = decision;
             countTime = 3;
             disableButtons();
@@ -246,7 +244,10 @@ package view
 
             }
 
-            applyDecision();
+            if(ResultController.ME.onWinner(getPoints()))
+                GameController.ME.endSession(session.id);
+            else
+                applyDecision();
         }
 
         public function getPoints():Vector.<int>
@@ -259,6 +260,8 @@ package view
 
         public function endSession():void
         {
+            session.finish();
+
             if(session.leftPoints==3)
                 gameStats.text = "LEFT WIN";
             else if(session.rightPoints==3)

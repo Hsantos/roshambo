@@ -63,6 +63,7 @@ package view.components
 
             if(objList == null)return;
             if(objList.length == 1)return;
+            if(tc==null) return;
             if(tc.phase != TouchPhase.MOVED) return;
 
             if(evt.getTouch(stage).globalX > lastX) this.x+=speed;

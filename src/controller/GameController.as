@@ -39,25 +39,13 @@ package controller
 
         public function checkWinnerRound(decisionLeft:int, decisionRight:int, sessionId:int):void
         {
-            //check winner round
             GameView(view).updateWinnerRound(ResultController.ME.getResult(decisionLeft,decisionRight),sessionId);
-            Starling.juggler.delayCall(checkWinnerSession,1,sessionId);
         }
 
-        private function checkWinnerSession(sessionId:int):void
+        public function endSession(sessionId:int):void
         {
-            //todo check points for winner or continue round
-            if(ResultController.ME.onWinner(GameView(view).getPoints(sessionId)))
-            {
-                //End Game and Show Result
-                trace("FINISH GAME OF SESSION:  " + sessionId );
-                GameView(view).endSession(sessionId);
-            }
-            else
-            {
-                //Next Round
-                trace("NEXT ROUND OF SESSION:  " + sessionId );
-            }
+            trace("FINISH GAME OF SESSION:  " + sessionId );
+            GameView(view).endSession(sessionId);
         }
 
 
