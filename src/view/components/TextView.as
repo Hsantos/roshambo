@@ -19,8 +19,8 @@ package view.components
                 color:uint = 0, //
                 bold:Boolean = true) //
         {
-            var textFormat:TextFormat = new TextFormat("Verdana",fontSize,color);
 
+            var textFormat:TextFormat = new TextFormat(fontName,fontSize,color);
             super(width, height, text);
             format = textFormat;
         }

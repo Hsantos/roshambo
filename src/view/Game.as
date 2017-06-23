@@ -29,7 +29,7 @@ package view
         {
             sAssets = assets;
             trace("Initialize Starling");
-            EmbeddedAssets.start();
+
 
             var menu:MenuView = new MenuView();
             addChild(menu);

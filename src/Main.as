@@ -67,6 +67,7 @@ package
 
         private function startGame(assets:AssetManager):void
         {
+            EmbeddedAssets.start();
             var game:Game = _starling.root as Game;
             game.start(assets);
         }
